@@ -140,7 +140,7 @@ class bgtvplugin(StellarPlayer.IStellarPlayerPlugin):
         self.searchword = self.player.getControlValue('main','search_edit')
         if len(self.searchword) > 0:
             searchurl = mainurl + '/?cat=&s=' + self.searchword
-            self.onProcessDetalPage(searchurl)
+            self.onloadpage(searchurl)
         self.loading(True)
     
     def onMainMenuClick(self, page, listControl, item, itemControl):
