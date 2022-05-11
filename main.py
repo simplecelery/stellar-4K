@@ -140,6 +140,7 @@ class bgtvplugin(StellarPlayer.IStellarPlayerPlugin):
         self.searchword = self.player.getControlValue('main','search_edit')
         if len(self.searchword) > 0:
             searchurl = mainurl + '/?cat=&s=' + self.searchword
+            print(searchurl)
             self.onloadpage(searchurl)
         self.loading(True)
     
@@ -272,19 +273,10 @@ class bgtvplugin(StellarPlayer.IStellarPlayerPlugin):
         self.onloadpage(pageurl)
         self.loading(True)
         
-    def on_xl_click(self, page, listControl, item, itemControl):
-        self.player.updateControlValue(page,'movielist',[])
-        if len(self.allmovidesdata[page]['allmovies']) > item:
-            self.allmovidesdata[page]['actmovies'] = self.allmovidesdata[page]['allmovies'][item]
-        self.player.updateControlValue(page,'movielist',self.allmovidesdata[page]['actmovies'])
-        
     def on_magnet_click(self, page, listControl, item, itemControl):
         if len(self.allmovidesdata[page]) > item:
             playurl = self.allmovidesdata[page][item]['url']
-            try:
-                self.player.play(playurl, caption=page)
-            except:
-                self.player.play(playurl)   
+            self.player.download(playurl)   
             
     def loading(self, stopLoading = False):
         if hasattr(self.player,'loadingAnimation'):
