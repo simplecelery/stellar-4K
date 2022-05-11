@@ -281,35 +281,6 @@ class bgtvplugin(StellarPlayer.IStellarPlayerPlugin):
     def loading(self, stopLoading = False):
         if hasattr(self.player,'loadingAnimation'):
             self.player.loadingAnimation('main', stop=stopLoading)
-            
-    def getPlayUrl(self,pageurl):
-        playurl = ""
-        res = requests.get(pageurl)
-        if res.status_code == 200:
-            bs = bs4.BeautifulSoup(res.content.decode('UTF-8','ignore'),'html.parser')
-            selector = bs.select('#main > div.player-block > div > div.player-box > div > script')
-            if selector:
-                scriptitem = selector[1]
-                jsonstr = re.findall(r"var player_aaaa=(.+)",scriptitem.string)[0]
-                playerjson = json.loads(jsonstr)
-                encodeurl  = playerjson['url']
-                playurl = urllib.parse.unquote(encodeurl)
-        return playurl
-            
-    def searchMoive(self,wd):
-        print("search:" + wd)
-
-           
-    def onPlayerSearch(self, dispatchId, searchId, wd, limit):
-        try:
-            if self.dyxsurl == "":
-                result = []
-            else:
-                result = self.searchMoive(wd)
-            print(result)
-            self.player.dispatchResult(dispatchId, searchId=searchId, wd=wd, result=result)
-        except:
-            self.player.dispatchResult(dispatchId, searchId=searchId, wd=wd, result=[])
 
 def newPlugin(player:StellarPlayer.IStellarPlayer,*arg):
     plugin = bgtvplugin(player)
