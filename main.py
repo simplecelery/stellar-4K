@@ -168,8 +168,9 @@ class bgtvplugin(StellarPlayer.IStellarPlayerPlugin):
         self.loading()
         mediapageurl = self.medias[item]['url']
         medianame = self.medias[item]['title']
-        postid = re.findall(r"www.bugutv.cn/(.+?).html", mediapageurl)
-        if len(postid) != 1:
+        checkstr = mediapageurl[mediapageurl.rindex('/'):]
+        postid = re.findall(r"/(.+?).html", checkstr)
+        if len(postid) < 1:
             return
         imgselectstr = '#post-' + postid[0] + ' > div > div.entry-wrapper > div.entry-content.u-text-format.u-clearfix > figure > img'
         infoselectstr = '#post-' + postid[0] + ' > div > div.entry-wrapper > div.entry-content.u-text-format.u-clearfix > p'
