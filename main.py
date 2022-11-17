@@ -10,7 +10,7 @@ import math
 import json
 import urllib3
 
-mainurl = 'https://www.bugutv.cn'
+mainurl = 'https://www.bugutv.net/'
 
 class bgtvplugin(StellarPlayer.IStellarPlayerPlugin):
     def __init__(self,player:StellarPlayer.IStellarPlayer):
